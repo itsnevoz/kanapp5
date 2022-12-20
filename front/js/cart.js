@@ -1,6 +1,6 @@
 // pour différancier la page confirmation et panier
 const page = document.location.href;
-console.log(page);
+// console.log(page);
 //----------------------------------------------------------------
 // Récupération des produits de l'api
 //----------------------------------------------------------------
@@ -9,7 +9,7 @@ if (page.match("cart")) {
   fetch("http://localhost:3000/api/products")
     .then((res) => res.json())
     .then((objetProduits) => {
-      console.log(objetProduits);
+      // console.log(objetProduits);
       // appel de la fonction affichagePanier
       affichagePanier(objetProduits);
     })
@@ -31,7 +31,7 @@ function affichagePanier(index) {
   if (panier && panier.length != 0) {
     // zone de correspondance clef/valeur de l'api et du panier grâce à l'id produit choisit dans le localStorage
     for (let choix of panier) {
-      console.log(choix);
+      // console.log(choix);
       for (let g = 0, h = index.length; g < h; g++) {
         if (choix._id === index[g]._id) {
           // création et ajout de valeurs à panier qui vont servir pour les valeurs dataset
@@ -115,11 +115,16 @@ function modifQuantité() {
           cart.dataset.couleur === article.couleur
         ) {
           article.quantité = eq.target.value;
-          localStorage.panierStocké = JSON.stringify(panier);
-          // on met à jour le dataset quantité
-          cart.dataset.quantité = eq.target.value;
-          // on joue la fonction pour actualiser les données
-          totalProduit();
+          if (article.quantité > 100) {
+            alert("erreur");
+          } else {
+            console.log(article.quantité);
+            localStorage.panierStocké = JSON.stringify(panier);
+            // on met à jour le dataset quantité
+            cart.dataset.quantité = eq.target.value;
+            // on joue la fonction pour actualiser les données
+            totalProduit();
+          }
         }
     });
   });
@@ -360,6 +365,10 @@ function couleurRegex(regSearch, valeurEcoute, inputAction) {
     // si valeur n'est plus un string vide et la regex différante de 0 (regex à -1 et le champ n'est pas vide donc il y a une erreur)
   } else if (valeurEcoute !== "" && regSearch != 0) {
     inputAction.style.backgroundColor = "rgb(220, 50, 50)";
+    inputAction.style.color = "white";
+    //si le format de lemail = "Caratères acceptés pour ce champ. Forme email pas encore conforme"
+  } else if (valeurEcoute !== "" && contactClient.regexEmail == 0) {
+    inputAction.style.backgroundColor = "rgb(220, 127, 50)";
     inputAction.style.color = "white";
     // pour le reste des cas (quand la regex ne décèle aucune erreur et est à 0 peu importe le champ vu qu'il est validé par la regex)
   } else {

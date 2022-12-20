@@ -198,11 +198,11 @@ function Panier() {
           parseInt(choix.quantité) + parseInt(quantitéProduit);
         // on convertit en JSON le résultat précédent dans la zone voulue
         choix.quantité = JSON.stringify(additionQuantité);
-        console.log(additionQuantité);
+        // console.log(additionQuantité);
         //conditions de validation du bouton ajouter au panier
         if (additionQuantité > 100) {
           alert(
-            "Le nombre d'article similaire ne doit pas etre superieur a 100"
+            "Le nombre d'article similaire ne doit pas etre superieur à 100, le nombre d'article ajouter est trop grand et ne sera donc pas pris en compte. Veillez saisir un montant correct."
           );
           // si ça passe le controle
         } else {
@@ -221,7 +221,7 @@ function Panier() {
   // appel fonction ajoutPremierProduit si produitsEnregistrés n'existe pas
   return ajoutPremierProduit();
 }
-console.log(localStorage.panierStocké);
+// console.log(localStorage.panierStocké);
 //--------------------------------------------------------------------------------------------------
 //limitation nombre d'article panier
 //--------------------------------------------------------------------------------------------------
