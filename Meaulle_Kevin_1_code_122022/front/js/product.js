@@ -53,7 +53,7 @@ function lesProduits(produit) {
       }
     }
   }
-  console.log("affichage effectué");
+  // console.log("affichage effectué");
 }
 //------------------------------------------------------------------------
 // choix couleur dynamique
@@ -123,7 +123,6 @@ choixProduit.addEventListener("click", () => {
     document.querySelector("#addToCart").textContent = "Produit ajouté !";
   }
 });
-
 //------------------------------------------------------------------------
 // Déclaration de tableaux utiles (voir mutation)
 //------------------------------------------------------------------------
@@ -138,9 +137,8 @@ let produitsAPousser = [];
 //-------------------------------------------------------------------------
 // fonction ajoutPremierProduit qui ajoute l'article choisi dans le tableau vierge
 //-------------------------------------------------------------------------
-
 function ajoutPremierProduit() {
-  // console.log(produitsEnregistrés);
+  console.log(produitsEnregistrés);
   //si produitsEnregistrés est null c'est qu'il n'a pas été créé
   if (produitsEnregistrés === null) {
     // pousse le produit choisit dans choixProduitClient
@@ -153,11 +151,9 @@ function ajoutPremierProduit() {
 //-------------------------------------------------------------------------
 // fonction ajoutAutreProduit qui ajoute l'article dans le tableau non vierge et fait un tri
 //-------------------------------------------------------------------------
-
 function ajoutAutreProduit() {
   // vide/initialise produitsAPousser pour recevoir les nouvelles données
   produitsAPousser = [];
-
   // pousse le produit choisit dans produitsTemporaires
   produitsTemporaires.push(articleClient);
   // combine produitsTemporaires et/dans produitsEnregistrés, ça s'appele produitsAPousser
@@ -193,35 +189,19 @@ function Panier() {
         alert("RAPPEL: Vous aviez déja choisit cet article.");
         // on modifie la quantité d'un produit existant dans le panier du localstorage
         //définition de additionQuantité qui est la valeur de l'addition de l'ancienne quantité parsée et de la nouvelle parsée pour le même produit
-
         let additionQuantité =
           parseInt(choix.quantité) + parseInt(quantitéProduit);
         // on convertit en JSON le résultat précédent dans la zone voulue
         choix.quantité = JSON.stringify(additionQuantité);
-        // console.log(additionQuantité);
-        //conditions de validation du bouton ajouter au panier
-        if (additionQuantité > 100) {
-          alert(
-            "Le nombre d'article similaire ne doit pas etre superieur à 100, le nombre d'article ajouter est trop grand et ne sera donc pas pris en compte. Veillez saisir un montant correct."
-          );
-          // si ça passe le controle
-        } else {
-          console.log(additionQuantité);
-
-          // dernière commande, on renvoit un nouveau panierStocké dans le localStorage
-          return (localStorage.panierStocké =
-            JSON.stringify(produitsEnregistrés));
-          return ajoutAutreProduit();
-        }
+        // dernière commande, on renvoit un nouveau panierStocké dans le localStorage
+        return (localStorage.panierStocké =
+          JSON.stringify(produitsEnregistrés));
       }
     }
-
     // appel fonction ajoutAutreProduit si la boucle au dessus ne retourne rien donc n'a pas d'égalité
+    return ajoutAutreProduit();
   }
   // appel fonction ajoutPremierProduit si produitsEnregistrés n'existe pas
   return ajoutPremierProduit();
 }
-// console.log(localStorage.panierStocké);
-//--------------------------------------------------------------------------------------------------
-//limitation nombre d'article panier
-//--------------------------------------------------------------------------------------------------
+//--------------------------------------------------------------------------------------------------//
